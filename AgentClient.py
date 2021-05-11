@@ -24,7 +24,7 @@ class AgentClient:
         print("Agent typu {} o nazwie {} rozpoczął działanie.".format(self.agenttype, self.name))
 
     @staticmethod
-    def returnalbums(lengtharr, yearsarr, nationarr, atmospherearr, vocalarr, formatarr, ocassionarr, languagearr):
+    def returnalbums(lengtharr, yearsarr, nationarr, atmospherearr, formatarr, ocassionarr, languagearr):
         def choice():
             labelchoice.config(text=var.get())
 
@@ -32,7 +32,6 @@ class AgentClient:
         print(yearsarr)
         print(nationarr)
         print(atmospherearr)
-        print(vocalarr)
         print(formatarr)
         print(ocassionarr)
         print(languagearr)

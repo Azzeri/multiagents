@@ -25,7 +25,7 @@ def submit():
     arrayappend(yearsVarStates, yearsArr)
     arrayappend(nationVarStates, nationArr)
     arrayappend(atmosphereVarStates, atmosphereArr)
-    arrayappend(vocalVarStates, vocalArr)
+    # arrayappend(vocalVarStates, vocalArr)
     arrayappend(formatVarStates, formatArr)
     arrayappend(ocassionVarStates, ocassionArr)
     arrayappend(languageVarStates, languageArr)
@@ -40,12 +40,12 @@ def submit():
     # print(check(languageVarStates))
 
     checksum = check(lengthVarStates) + check(yearsVarStates) + check(nationVarStates) + check(
-        atmosphereVarStates) + check(vocalVarStates) + check(
+        atmosphereVarStates) + check(
         formatVarStates) + check(ocassionVarStates) + check(languageVarStates)
 
-    if checksum == 8:
+    if checksum == 7:
         root.destroy()
-        Ak1.returnalbums(lengthArr, yearsArr, nationArr, atmosphereArr, vocalArr, formatArr, ocassionArr, languageArr)
+        Ak1.returnalbums(lengthArr, yearsArr, nationArr, atmosphereArr, formatArr, ocassionArr, languageArr)
         # Ak2.returnalbums(lengthArr, yearsArr, nationArr, atmosphereArr, vocalArr, formatArr, ocassionArr, languageArr)
 
 
@@ -62,6 +62,16 @@ def createcheckboxes(titlelabel, arrvalues, arrstates):
         index += 1
 
 
+def createselects(titlelabel, arrvalues, arrstates):
+    titlelabel = ttk.Label(root, text=titlelabel, font=("Arial", 12))
+    titlelabel.pack(anchor=W)
+    varstate = StringVar()
+    select = ttk.Combobox(root, width=27, textvariable=varstate, values = arrvalues)
+    select.pack(anchor=W)
+    arrstates.append(varstate)
+    select.current(0)
+
+
 Ak1 = AgentClient("AK1", 'client')
 Ak1.init()
 Ak2 = AgentClient("AK2", 'client')
@@ -75,12 +85,13 @@ root.geometry('350x1080')
 lengthArr = []
 values = ["Krótka", "Średnia", "Długa"]
 lengthVarStates = []
-createcheckboxes("Długość", values, lengthVarStates)
+createselects("Długość", values, lengthVarStates)
+# createcheckboxes("Długość", values, lengthVarStates)
 
 yearsArr = []
 values = ["Starsza", "Średnia", "Nowoczesna"]
 yearsVarStates = []
-createcheckboxes("Lata", values, yearsVarStates)
+createselects("Lata", values, yearsVarStates)
 
 atmosphereArr = []
 values = ["Smutna", "Wesoła", "Lekka", "Ciężka", "Relaksacyjna", "Szybka", "Podniosła"]
@@ -90,22 +101,22 @@ createcheckboxes("Nastrój", values, atmosphereVarStates)
 formatArr = []
 values = ["Kompakt", "Winyl", "MP3"]
 formatVarStates = []
-createcheckboxes("Format", values, formatVarStates)
+createselects("Format", values, formatVarStates)
 
 languageArr = []
 values = ["polski", "angielski", "francuski", "hiszpański", "inny"]
 languageVarStates = []
-createcheckboxes("Język", values, languageVarStates)
+createselects("Język", values, languageVarStates)
 
 nationArr = []
 values = ["Polska", "Zagraniczna"]
 nationVarStates = []
-createcheckboxes("Nacja", values, nationVarStates)
+createselects("Nacja", values, nationVarStates)
 
-vocalArr = []
-values = ["Obecny", "Nieobecny"]
-vocalVarStates = []
-createcheckboxes("Wokal", values, vocalVarStates)
+# vocalArr = []
+# values = ["Obecny", "Nieobecny"]
+# vocalVarStates = []
+# createcheckboxes("Wokal", values, vocalVarStates)
 
 ocassionArr = []
 values = ["Impreza", "Trening", "Praca", "Rozmowa", "Relaks"]
