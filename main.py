@@ -60,8 +60,38 @@ def submit():
 
     if checksum == 7 and maxprice and maxprice.get().isdigit():
         root.destroy()
-        Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get())
-        # Ak2.returnalbums(lengthArr, yearsArr, nationArr, atmosphereArr, vocalArr, formatArr, ocassionArr, languageArr)
+        returnedalbums = [Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
+                          Ak2.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
+                          Ak3.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
+                          Ak4.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
+                          Ak5.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get())]
+        arrayforuser = []
+        for album in returnedalbums:
+            if album not in arrayforuser:
+                arrayforuser.append(album)
+                print(album.name)
+
+        def choice():
+            labelchoice.config(text=var.get())
+
+        userchoice = ThemedTk(theme='arc')
+        userchoice.title('Wybór albumu')
+        userchoice.geometry('350x200')
+        userchoice.eval('tk::PlaceWindow . center')
+
+        labelmain = ttk.Label(userchoice, text="Wybierz", font=("Arial", 12))
+        labelmain.pack()
+        buttonsubmit = ttk.Button(userchoice, text="Wybieram", command=choice)
+        buttonsubmit.pack()
+
+        var = StringVar()
+        for onealbum in arrayforuser:
+            radio = ttk.Radiobutton(userchoice, text=onealbum.name, value=onealbum.name, variable=var)
+            radio.pack(anchor=W)
+
+        labelchoice = ttk.Label(userchoice, text="", font=("Arial", 12))
+        labelchoice.pack()
+        userchoice.mainloop()
 
 
 def createheader(titlelabel):
@@ -99,7 +129,12 @@ Ak1 = AgentClient("AK1", 'client')
 Ak1.init()
 Ak2 = AgentClient("AK2", 'client')
 Ak2.init()
-
+Ak3 = AgentClient("AK3", 'client')
+Ak3.init()
+Ak4 = AgentClient("AK4", 'client')
+Ak4.init()
+Ak5 = AgentClient("AK5", 'client')
+Ak5.init()
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
