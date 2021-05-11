@@ -24,9 +24,9 @@ class AgentClient:
         print("Agent typu {} o nazwie {} rozpoczął działanie.".format(self.agenttype, self.name))
 
     @staticmethod
-    def returnalbums(length, years, nation, atmosphere, formatv, ocassion, language):
-        def choice():
-            labelchoice.config(text=var.get())
+    def returnalbums(length, years, nation, atmosphere, formatv, ocassion, language, maxprice):
+        # def choice():
+        #     labelchoice.config(text=var.get())
 
         print(length.array, length.priority, sep=" ")
         print(years.array, years.priority, sep=" ")
@@ -35,22 +35,23 @@ class AgentClient:
         print(formatv.array, formatv.priority, sep=" ")
         print(ocassion.array, ocassion.priority, sep=" ")
         print(language.array, language.priority, sep=" ")
+        print(maxprice)
 
-        userchoice = ThemedTk(theme='arc')
-        userchoice.title('Wybór albumu')
-        userchoice.geometry('350x200')
-        userchoice.eval('tk::PlaceWindow . center')
-
-        labelmain = ttk.Label(userchoice, text="Wybierz", font=("Arial", 12))
-        labelmain.pack()
-        buttonsubmit = ttk.Button(userchoice, text="Wybieram", command=choice)
-        buttonsubmit.pack()
-
-        var = StringVar()
-        for onealbum in albumsArr:
-            radio = ttk.Radiobutton(userchoice, text=onealbum.name, value=onealbum.name, variable=var)
-            radio.pack(anchor=W)
-
-        labelchoice = ttk.Label(userchoice, text="", font=("Arial", 12))
-        labelchoice.pack()
-        userchoice.mainloop()
+        # userchoice = ThemedTk(theme='arc')
+        # userchoice.title('Wybór albumu')
+        # userchoice.geometry('350x200')
+        # userchoice.eval('tk::PlaceWindow . center')
+        #
+        # labelmain = ttk.Label(userchoice, text="Wybierz", font=("Arial", 12))
+        # labelmain.pack()
+        # buttonsubmit = ttk.Button(userchoice, text="Wybieram", command=choice)
+        # buttonsubmit.pack()
+        #
+        # var = StringVar()
+        # for onealbum in albumsArr:
+        #     radio = ttk.Radiobutton(userchoice, text=onealbum.name, value=onealbum.name, variable=var)
+        #     radio.pack(anchor=W)
+        #
+        # labelchoice = ttk.Label(userchoice, text="", font=("Arial", 12))
+        # labelchoice.pack()
+        # userchoice.mainloop()

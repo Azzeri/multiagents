@@ -58,9 +58,9 @@ def submit():
         atmosphereVarStates) + check(
         formatVarStates) + check(ocassionVarStates) + check(languageVarStates)
 
-    if checksum == 7:
+    if checksum == 7 and maxprice and maxprice.get().isdigit():
         root.destroy()
-        Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6)
+        Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get())
         # Ak2.returnalbums(lengthArr, yearsArr, nationArr, atmosphereArr, vocalArr, formatArr, ocassionArr, languageArr)
 
 
@@ -102,7 +102,7 @@ Ak2.init()
 
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
-root.geometry('350x800')
+root.geometry('350x900')
 # root.eval('tk::PlaceWindow . center')
 
 prioritiesArr = ["Wysoki", "Średni", "Niski"]
@@ -147,6 +147,12 @@ ocassionArr = []
 values = ["Impreza", "Trening", "Praca", "Rozmowa", "Relaks"]
 ocassionVarStates = []
 createcheckboxes("Okazja", values, ocassionVarStates)
+
+maxprice = StringVar()
+pricetitlelabel = ttk.Label(root, text="Max cena", font=("Arial", 12))
+pricetitlelabel.pack(anchor=W)
+maxpriceinput = ttk.Entry(root, textvariable=maxprice)
+maxpriceinput.pack(anchor=W)
 
 # combovalues = ["as", "asd", "dsf"]
 # combo1 = Combobox(root)
