@@ -1,9 +1,15 @@
-from tkinter import ttk, StringVar, W
+from tkinter import ttk, StringVar, W, E, N
 from tkinter.ttk import Combobox
 
 from ttkthemes import ThemedTk
 
 from AgentClient import AgentClient
+
+
+# class DataSet:
+#     def __init__(self, array, priority):
+#         self.array = array
+#         self.priority = priority
 
 
 def arrayappend(arrayfrom, arrayto):
@@ -25,7 +31,6 @@ def submit():
     arrayappend(yearsVarStates, yearsArr)
     arrayappend(nationVarStates, nationArr)
     arrayappend(atmosphereVarStates, atmosphereArr)
-    # arrayappend(vocalVarStates, vocalArr)
     arrayappend(formatVarStates, formatArr)
     arrayappend(ocassionVarStates, ocassionArr)
     arrayappend(languageVarStates, languageArr)
@@ -34,7 +39,6 @@ def submit():
     # print(check(yearsVarStates))
     # print(check(nationVarStates))
     # print(check(atmosphereVarStates))
-    # print(check(vocalVarStates))
     # print(check(formatVarStates))
     # print(check(ocassionVarStates))
     # print(check(languageVarStates))
@@ -49,9 +53,18 @@ def submit():
         # Ak2.returnalbums(lengthArr, yearsArr, nationArr, atmosphereArr, vocalArr, formatArr, ocassionArr, languageArr)
 
 
-def createcheckboxes(titlelabel, arrvalues, arrstates):
+def createheader(titlelabel):
     titlelabel = ttk.Label(root, text=titlelabel, font=("Arial", 12))
     titlelabel.pack(anchor=W)
+    varstate = StringVar()
+    select = ttk.Combobox(root, width=10, textvariable=varstate, values=prioritiesArr)
+    select.pack(anchor=E)
+    priorities.append(varstate)
+    select.current(1)
+
+
+def createcheckboxes(titlelabel, arrvalues, arrstates):
+    createheader(titlelabel)
     index = 0
 
     for _ in arrvalues:
@@ -63,10 +76,9 @@ def createcheckboxes(titlelabel, arrvalues, arrstates):
 
 
 def createselects(titlelabel, arrvalues, arrstates):
-    titlelabel = ttk.Label(root, text=titlelabel, font=("Arial", 12))
-    titlelabel.pack(anchor=W)
+    createheader(titlelabel)
     varstate = StringVar()
-    select = ttk.Combobox(root, width=27, textvariable=varstate, values = arrvalues)
+    select = ttk.Combobox(root, width=27, textvariable=varstate, values=arrvalues)
     select.pack(anchor=W)
     arrstates.append(varstate)
     select.current(0)
@@ -79,9 +91,11 @@ Ak2.init()
 
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
-root.geometry('350x1080')
-# root.eval('tk::PlaceWindow . center')
+root.geometry('350x800')
+#root.eval('tk::PlaceWindow . center')
 
+prioritiesArr = ["Wysoki", "Średni", "Niski"]
+priorities = []
 lengthArr = []
 values = ["Krótka", "Średnia", "Długa"]
 lengthVarStates = []
