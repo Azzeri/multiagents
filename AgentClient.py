@@ -13,9 +13,9 @@ albumsArr.append(album)
 album = Album("Death By Rock And Roll", "The Pretty Reckless", "1989-10-10", 50, "Kompakt", 1, 1, atmospheres,
               languages, ocassions, 20.0)
 albumsArr.append(album)
-album = Album("Infestissumam", "Ghost", "1989-10-10", 50, "Kompakt", 1, 1, atmospheres, languages, ocassions, 22.3)
+album = Album("Infestissumam", "Ghost", "1989-10-10", 50, "Kompakt", 1, 1, atmospheres, languages, ocassions, 40)
 albumsArr.append(album)
-album = Album("Róże", "KAT", "1989-10-10", 50, "Kompakt", 1, 1, atmospheres, languages, ocassions, 22.3)
+album = Album("Róże", "KAT", "1989-10-10", 50, "Kompakt", 1, 1, atmospheres, languages, ocassions, 50)
 albumsArr.append(album)
 
 
@@ -39,4 +39,7 @@ class AgentClient:
         print(maxprice)
 
         rand = random.randrange(0, len(albumsArr), 1)
+        while float(albumsArr[rand].price) > float(maxprice):
+            rand = random.randrange(0, len(albumsArr), 1)
+
         return albumsArr[rand]
