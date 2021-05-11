@@ -24,17 +24,17 @@ class AgentClient:
         print("Agent typu {} o nazwie {} rozpoczął działanie.".format(self.agenttype, self.name))
 
     @staticmethod
-    def returnalbums(lengtharr, yearsarr, nationarr, atmospherearr, formatarr, ocassionarr, languagearr):
+    def returnalbums(length, years, nation, atmosphere, formatv, ocassion, language):
         def choice():
             labelchoice.config(text=var.get())
 
-        print(lengtharr)
-        print(yearsarr)
-        print(nationarr)
-        print(atmospherearr)
-        print(formatarr)
-        print(ocassionarr)
-        print(languagearr)
+        print(length.array, length.priority, sep=" ")
+        print(years.array, years.priority, sep=" ")
+        print(nation.array, nation.priority, sep=" ")
+        print(atmosphere.array, atmosphere.priority, sep=" ")
+        print(formatv.array, formatv.priority, sep=" ")
+        print(ocassion.array, ocassion.priority, sep=" ")
+        print(language.array, language.priority, sep=" ")
 
         userchoice = ThemedTk(theme='arc')
         userchoice.title('Wybór albumu')
