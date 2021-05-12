@@ -86,7 +86,8 @@ def submit():
 
         var = StringVar()
         for onealbum in arrayforuser:
-            radio = ttk.Radiobutton(userchoice, text=onealbum.name, value=onealbum.name, variable=var)
+            label = "{} {}zł".format(onealbum.name, onealbum.price)
+            radio = ttk.Radiobutton(userchoice, text=label, value=onealbum.name, variable=var)
             radio.pack(anchor=W)
 
         labelchoice = ttk.Label(userchoice, text="", font=("Arial", 12))
