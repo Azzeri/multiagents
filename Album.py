@@ -3,7 +3,7 @@ import datetime
 
 class Album:
     def __init__(self, name, artist, date, length, albumformat, price, atmospheresmatch, languagesmatch, nationmatch,
-                 occassionsmatch):
+                 occassionsmatch, quantity):
         self.name = name
         self.artist = artist
         self.date = date
@@ -15,6 +15,8 @@ class Album:
         self.languagesmatch = languagesmatch
         self.nationmatch = nationmatch
         self.occassionsmatch = occassionsmatch
+
+        self.quantity = quantity
 
         if length <= 15:
             self.lengthmatch = [3, 0, 0]
