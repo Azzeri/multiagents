@@ -3,6 +3,8 @@ import random
 from tkinter import ttk, StringVar, W
 from ttkthemes import ThemedTk
 from Album import Album
+from Magasine import Magasine
+
 
 # albumsArr = []
 # atmospheres = ["Smutna", "Lekka"]
@@ -23,9 +25,15 @@ class AgentClient:
     def __init__(self, name, agenttype):
         self.name = name
         self.agenttype = agenttype
+        self.magasine = Magasine("main")
+        self.albums = self.magasine.returnalbumstoagent()
 
     def init(self):
         print("Agent typu {} o nazwie {} rozpoczął działanie.".format(self.agenttype, self.name))
+
+    def displaydata(self):
+        for album in self.albums:
+            print(album.name, album.albumformat, album.quantity, sep=" : ")
 
     @staticmethod
     def returnalbums(length, years, nation, atmosphere, formatv, ocassion, language, maxprice):

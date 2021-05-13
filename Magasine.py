@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from Album import Album
+import math, random
 
 
 class Magasine:
@@ -19,7 +20,7 @@ class Magasine:
                   [0, 3, 0], [0, 3], [3, 2, 1, 1, 1], 43),
             Album("Ghost", "Infestissumam", datetime(2013, 4, 10), 47, "Kompakt", 45.62, [2, 1, 2, 2, 1, 2, 3],
                   [0, 3, 1], [0, 3], [2, 1, 2, 2, 2], 12),
-            Album("Mgła", "Age of Excuse", datetime(2019, 9, 2), 42, "Kompakt", 30.03, [2, 0, 0, 3, 1, 3, 1], [0, 3, 0],
+            Album("Age of Excuse", "Age of Excuse", datetime(2019, 9, 2), 42, "Kompakt", 30.03, [2, 0, 0, 3, 1, 3, 1], [0, 3, 0],
                   [3, 0], [1, 2, 0, 0, 1], 12),
             Album("Arachne", "Hunter", datetime(2019, 3, 8), 47, "Kompakt", 30.05, [2, 1, 1, 2, 1, 1, 2], [3, 0, 0],
                   [3, 0], [1, 1, 0, 1, 2], 54),
@@ -39,7 +40,7 @@ class Magasine:
                   [3, 0, 0], [3, 0], [1, 0, 2, 2, 3], 98),
             Album("Iron Maiden", "Iron Maiden", datetime(1980, 4, 14), 40, "Kompakt", 45.55, [1, 2, 0, 2, 1, 3, 1],
                   [0, 3, 0], [0, 3], [3, 3, 1, 1, 1], 23),
-            Album("Mgła", "Age of Excuse", datetime(2019, 9, 2), 42, "MP3", 30.03, [2, 0, 0, 3, 1, 3, 1], [0, 3, 0],
+            Album("Age of Excuse", "Mgła", datetime(2019, 9, 2), 42, "MP3", 30.03, [2, 0, 0, 3, 1, 3, 1], [0, 3, 0],
                   [3, 0], [1, 2, 0, 0, 1], 25),
             Album("Arachne", "Hunter", datetime(2019, 3, 8), 47, "MP3", 30.05, [2, 1, 1, 2, 1, 1, 2], [3, 0, 0],
                   [3, 0], [1, 1, 0, 1, 2], 54),
@@ -60,3 +61,29 @@ class Magasine:
             Album("Hybrid Theory", "Linkin Park", datetime(2000, 10, 24), 49, "Winyl", 45.59, [2, 2, 1, 2, 1, 2, 1],
                   [0, 3, 0], [0, 3], [3, 2, 1, 1, 1], 23),
         ]
+
+        self.noalbums = 0
+        for album in self.albums:
+            self.noalbums += album.quantity
+
+    def returnalbumstoagent(self):
+        noalbumstoreturntotal = math.floor(len(self.albums) * 0.75)
+        noalbumstoreturn = 0
+        albumstoreturn = []
+
+        while noalbumstoreturn < noalbumstoreturntotal:
+            randomizedalbum = self.albums[random.randint(0, len(self.albums) - 1)]
+            while randomizedalbum in albumstoreturn:
+                randomizedalbum = self.albums[random.randint(0, len(self.albums) - 1)]
+
+            if randomizedalbum.quantity == 0:
+                break
+
+            randomizedquantity = random.randint(1, randomizedalbum.quantity)
+            noalbumstoreturn += 1
+            aux = randomizedalbum.quantity - randomizedquantity
+            randomizedalbum.quantity = randomizedquantity
+            albumstoreturn.append(randomizedalbum)
+            randomizedalbum.quantity = aux
+
+        return albumstoreturn

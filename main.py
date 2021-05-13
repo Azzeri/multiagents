@@ -6,6 +6,7 @@ from ttkthemes import ThemedTk
 from AgentClient import AgentClient
 from Magasine import Magasine
 
+
 class DataSet:
     def __init__(self, array, priority):
         self.array = array
@@ -63,7 +64,7 @@ def submit():
         returnedalbums = [Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
                           Ak2.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
                           Ak3.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
-]
+                          ]
         arrayforuser = []
         for album in returnedalbums:
             if album not in arrayforuser:
@@ -125,18 +126,19 @@ def createcheckboxes(titlelabel, arrvalues, arrstates):
         index += 1
 
 
-mg = Magasine("main")
-
 Ak1 = AgentClient("AK1", 'client')
 Ak1.init()
-Ak2 = AgentClient("AK2", 'client')
-Ak2.init()
-Ak3 = AgentClient("AK3", 'client')
-Ak3.init()
+# Ak2 = AgentClient("AK2", 'client')
+# Ak2.init()
+# Ak3 = AgentClient("AK3", 'client')
+# Ak3.init()
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
 # root.eval('tk::PlaceWindow . center')
+
+Ak1.displaydata()
+#Ak2.displaydata()
 
 prioritiesArr = ["Wysoki", "Średni", "Niski"]
 priorities = []
