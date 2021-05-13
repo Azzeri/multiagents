@@ -162,7 +162,7 @@ formatVarStates = []
 createselects("Format", values, formatVarStates)
 
 languageArr = []
-values = ["polski", "angielski", "francuski", "hiszpański", "inny"]
+values = ["polski", "angielski", "inny"]
 languageVarStates = []
 createselects("Język", values, languageVarStates)
 
