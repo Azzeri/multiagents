@@ -13,5 +13,3 @@ class Album:
         self.occasions = occasions
         self.price = price
 
-    def getname(self):
-        return self.name
