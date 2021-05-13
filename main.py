@@ -68,7 +68,7 @@ def submit():
         for album in returnedalbums:
             if album not in arrayforuser:
                 arrayforuser.append(album)
-                print(album.name)
+                # print(album.name)
 
         def choice():
             labelchoice.config(text=var.get())
