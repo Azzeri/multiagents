@@ -59,15 +59,15 @@ def submit():
         atmosphereVarStates) + check(
         formatVarStates) + check(ocassionVarStates) + check(languageVarStates)
 
-    if checksum == 7 and maxprice and maxprice.get().isdigit():
+    if checksum == 7 and maxprice and maxprice.get().isdigit() and minprice and minprice.get().isdigit():
         root.destroy()
-        returnedalbums = [Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
-                          Ak2.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
-                          Ak3.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get()),
+        returnedalbums = [Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get(), minprice.get()),
+                          Ak2.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get(), minprice.get()),
+                          Ak3.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get(), minprice.get()),
                           ]
         arrayforuser = []
         for album in returnedalbums:
-            if album not in arrayforuser:
+            if album not in arrayforuser and album is not None:
                 arrayforuser.append(album)
                 # print(album.name)
 
@@ -128,10 +128,10 @@ def createcheckboxes(titlelabel, arrvalues, arrstates):
 
 Ak1 = AgentClient("AK1", 'client')
 Ak1.init()
-# Ak2 = AgentClient("AK2", 'client')
-# Ak2.init()
-# Ak3 = AgentClient("AK3", 'client')
-# Ak3.init()
+Ak2 = AgentClient("AK2", 'client')
+Ak2.init()
+Ak3 = AgentClient("AK3", 'client')
+Ak3.init()
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
@@ -183,12 +183,17 @@ values = ["Impreza", "Trening", "Praca", "Rozmowa", "Relaks"]
 ocassionVarStates = []
 createcheckboxes("Okazja", values, ocassionVarStates)
 
+minprice = StringVar()
+pricetitlelabel = ttk.Label(root, text="Min cena", font=("Arial", 12))
+pricetitlelabel.pack(anchor=W)
+minpriceinput = ttk.Entry(root, textvariable=minprice)
+minpriceinput.pack(anchor=W)
+
 maxprice = StringVar()
 pricetitlelabel = ttk.Label(root, text="Max cena", font=("Arial", 12))
 pricetitlelabel.pack(anchor=W)
 maxpriceinput = ttk.Entry(root, textvariable=maxprice)
 maxpriceinput.pack(anchor=W)
-
 # combovalues = ["as", "asd", "dsf"]
 # combo1 = Combobox(root)
 # combo1['values'] = combovalues

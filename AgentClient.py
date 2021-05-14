@@ -35,8 +35,7 @@ class AgentClient:
         for album in self.albums:
             print(album.name, album.albumformat, album.quantity, sep=" : ")
 
-    @staticmethod
-    def returnalbums(length, years, nation, atmosphere, formatv, ocassion, language, maxprice):
+    def returnalbums(self, length, years, nation, atmosphere, formatv, ocassion, language, maxprice, minprice):
         print(length.array, length.priority, sep=" ")
         print(years.array, years.priority, sep=" ")
         print(nation.array, nation.priority, sep=" ")
@@ -44,10 +43,19 @@ class AgentClient:
         print(formatv.array, formatv.priority, sep=" ")
         print(ocassion.array, ocassion.priority, sep=" ")
         print(language.array, language.priority, sep=" ")
+        print(minprice)
         print(maxprice)
 
-        # rand = random.randrange(0, len(albumsArr), 1)
-        # while float(albumsArr[rand].price) > float(maxprice):
-        #     rand = random.randrange(0, len(albumsArr), 1)
+        # found = 0
+        # for album in self.albums:
+        #     if float(album.price) <= float(maxprice):
+        #         found = 1
         #
-        # return albumsArr[rand]
+        # if found == 0:
+        #     return None
+
+        rand = random.randrange(0, len(self.albums), 1)
+        while float(self.albums[rand].price) > float(maxprice) or float(self.albums[rand].price) < float(minprice):
+            rand = random.randrange(0, len(self.albums), 1)
+
+        return self.albums[rand]
