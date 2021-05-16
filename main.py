@@ -131,6 +131,7 @@ Ak1 = AgentClient("AK1", 'client')
 Ak2 = AgentClient("AK2", 'client')
 Ak3 = AgentClient("AK3", 'client')
 Ak4 = AgentClient("AK4", 'client')
+
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
