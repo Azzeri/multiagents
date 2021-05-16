@@ -3,7 +3,7 @@ from ttkthemes import ThemedTk
 from AgentClient import AgentClient
 from AgentSeller import AgentSeller
 from Magasine import Magasine
-
+import copy
 
 class DataSet:
     def __init__(self, array, priority):
@@ -94,9 +94,20 @@ def submit():
 
         # Return albums without repeats
         albums_returned_merged = []
+        found = 0
         for album in albums_returned:
-            if album not in albums_returned_merged and album is not None:
+            for album_m in albums_returned_merged:
+                if album_m.name == album.name and album_m.albumformat == album.albumformat and album is not None:
+                    found = 1
+            if found == 0:
                 albums_returned_merged.append(album)
+                found = 0
+            # elif found == 1:
+            #     if album_copy.price < album.price:
+            #         albums_returned_merged.append(album_copy)
+            #     else:
+            #         albums_returned_merged.append(album)
+            #     found = 0
 
         # Display choice window
         gui_user_choice(albums_returned_merged)
