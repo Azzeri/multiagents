@@ -1,9 +1,7 @@
 from tkinter import ttk, StringVar, W, E, N
-from tkinter.ttk import Combobox
-
 from ttkthemes import ThemedTk
-
 from AgentClient import AgentClient
+from AgentSeller import AgentSeller
 from Magasine import Magasine
 
 
@@ -190,11 +188,6 @@ values = ["Polska", "Zagraniczna"]
 nationVarStates = []
 createselects("Nacja", values, nationVarStates)
 
-# vocalArr = []
-# values = ["Obecny", "Nieobecny"]
-# vocalVarStates = []
-# createcheckboxes("Wokal", values, vocalVarStates)
-
 ocassionArr = []
 values = ["Impreza", "Trening", "Praca", "Rozmowa", "Relaks"]
 ocassionVarStates = []
@@ -211,6 +204,13 @@ pricetitlelabel = ttk.Label(root, text="Max cena", font=("Arial", 12))
 pricetitlelabel.pack(anchor=W)
 maxpriceinput = ttk.Entry(root, textvariable=maxprice)
 maxpriceinput.pack(anchor=W)
+
+nosellers = StringVar()
+nosellerstitlelabel = ttk.Label(root, text="Liczba sprzedawców", font=("Arial", 12))
+nosellerstitlelabel.pack(anchor=W)
+nosellersinput = ttk.Entry(root, textvariable=nosellers)
+nosellersinput.pack(anchor=W)
+
 # combovalues = ["as", "asd", "dsf"]
 # combo1 = Combobox(root)
 # combo1['values'] = combovalues

@@ -67,6 +67,7 @@ class Magasine:
             albumtoreturn = copy.deepcopy(randomizedalbum)
             randomizedalbum.quantity -= randomizedquantity
            # print(randomizedalbum.name, randomizedalbum.quantity, sep=" : Wylosowany po odjęciu ilości : ")
+            albumtoreturn.price = albumtoreturn.price+(albumtoreturn.price*(random.uniform(0.01, 0.2)))
             albumtoreturn.quantity = randomizedquantity
            # print(albumtoreturn.name, albumtoreturn.quantity, sep=" : Zwracany : ")
             albumstoreturn.append(albumtoreturn)
