@@ -5,6 +5,7 @@ from AgentSeller import AgentSeller
 from Magasine import Magasine
 import copy
 
+
 class DataSet:
     def __init__(self, array, priority):
         self.array = array
@@ -151,6 +152,7 @@ root.geometry('350x900')
 
 prioritiesArr = ["Wysoki", "Średni", "Niski"]
 priorities = []
+
 lengthArr = []
 values = ["Krótka", "Średnia", "Długa"]
 lengthVarStates = []
@@ -191,14 +193,14 @@ pricetitlelabel = ttk.Label(root, text="Min cena", font=("Arial", 12))
 pricetitlelabel.pack(anchor=W)
 minpriceinput = ttk.Entry(root, textvariable=minprice)
 minpriceinput.pack(anchor=W)
-minpriceinput.insert(END, '10')
+minpriceinput.insert(END, '1')
 
 maxprice = StringVar()
 pricetitlelabel = ttk.Label(root, text="Max cena", font=("Arial", 12))
 pricetitlelabel.pack(anchor=W)
 maxpriceinput = ttk.Entry(root, textvariable=maxprice)
 maxpriceinput.pack(anchor=W)
-maxpriceinput.insert(END, '30')
+maxpriceinput.insert(END, '300')
 
 nosellers = StringVar()
 nosellerstitlelabel = ttk.Label(root, text="Liczba sprzedawców", font=("Arial", 12))
