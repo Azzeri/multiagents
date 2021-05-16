@@ -25,7 +25,7 @@ def check(array):
     return 0
 
 
-def gui_user_choice(albums_returned_merged):
+def gui_user_choice(albums_to_display):
     def choice():
         labelchoice.config(text=var.get())
 
@@ -41,8 +41,8 @@ def gui_user_choice(albums_returned_merged):
     buttonsubmit.pack()
 
     var = StringVar()
-    for onealbum in albums_returned_merged:
-        label = "{} {}zł".format(onealbum.name, onealbum.price)
+    for onealbum in albums_to_display:
+        label = "{} {}zł".format(onealbum.name, round(onealbum.price, 2))
         radio = ttk.Radiobutton(userchoice, text=label, value=onealbum.name, variable=var)
         radio.pack(anchor=W)
 
@@ -67,6 +67,10 @@ def submit():
             agents_client.append(AgentClient("AK" + str(i + 1)))
             agents_seller.append(AgentSeller("AS" + str(i + 1)))
 
+        # Fill agents with albums from main magasine
+        for agent in agents_seller:
+            agent.take_albums_from_magasine(main_magasine)
+
         # Create data for agents
         arrayappend(lengthVarStates, lengthArr)
         arrayappend(yearsVarStates, yearsArr)
@@ -81,10 +85,12 @@ def submit():
                      DataSet(atmosphereArr, priors[3]), DataSet(formatArr, priors[4]), DataSet(ocassionArr, priors[5]),
                      DataSet(languageArr, priors[6])]
 
-        # Return albums from sellers to user
+        # Return albums from sellers via client agents to user
         albums_returned = []
         for agent in agents_client:
-            albums_returned.append(agent.returnalbums(data_sets, maxprice.get(), minprice.get()))
+            albums_from_agent = agent.returnalbums(data_sets, maxprice.get(), minprice.get(), agents_seller)
+            for album in albums_from_agent:
+                albums_returned.append(album)
 
         # Return albums without repeats
         albums_returned_merged = []
@@ -131,34 +137,13 @@ root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
 # root.eval('tk::PlaceWindow . center')
-# print("Magazyn Main:\n")
-# Magasine.displaydata()
-# Ak1.takealbumsfrommagasine(Magasine)
-# print("Magazyn AK1:\n")
-# Ak1.displaydata()
-# # print("Magazyn Main po AK1:\n")
-# # Magasine.displaydata()
-# Ak2.takealbumsfrommagasine(Magasine)
-# print("Magazyn AK2:\n")
-# Ak2.displaydata()
-# # print("Magazyn Main po AK2:\n")
-# # Magasine.displaydata()
-#
-# Ak3.takealbumsfrommagasine(Magasine)
-# print("Magazyn AK3:\n")
-# Ak3.displaydata()
-# # print("Magazyn Main po AK3:\n")
-# # Magasine.displaydata()
-# Ak4.takealbumsfrommagasine(Magasine)
-# print("Magazyn AK4:\n")
-# Ak4.displaydata()
+
 prioritiesArr = ["Wysoki", "Średni", "Niski"]
 priorities = []
 lengthArr = []
 values = ["Krótka", "Średnia", "Długa"]
 lengthVarStates = []
 createselects("Długość", values, lengthVarStates)
-# createcheckboxes("Długość", values, lengthVarStates)
 
 yearsArr = []
 values = ["Starsza", "Średnia", "Nowoczesna"]

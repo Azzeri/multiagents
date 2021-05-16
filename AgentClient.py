@@ -6,34 +6,17 @@ from Album import Album
 from Magasine import Magasine
 
 
-# albumsArr = []
-# atmospheres = ["Smutna", "Lekka"]
-# languages = ["polski"]
-# ocassions = ["Relaks", "Praca"]
-# album = Album("Ballady", "Kat", "1989-10-10", 50, "Kompakt", 1, atmospheres, languages, ocassions, 25.5)
-# albumsArr.append(album)
-# album = Album("Death By Rock And Roll", "The Pretty Reckless", "1989-10-10", 50, "Kompakt", 1, atmospheres,
-#               languages, ocassions, 20.0)
-# albumsArr.append(album)
-# album = Album("Infestissumam", "Ghost", "1989-10-10", 50, "Kompakt", 1, atmospheres, languages, ocassions, 40)
-# albumsArr.append(album)
-# album = Album("Róże", "KAT", "1989-10-10", 50, "Kompakt", 1, atmospheres, languages, ocassions, 50)
-# albumsArr.append(album)
-
-
 class AgentClient:
     def __init__(self, name):
         self.name = name
-        self.albums = []
 
-    def takealbumsfrommagasine(self, magasine):
-        self.albums = magasine.returnalbumstoagent()
+    def returnalbums(self, data_sets, maxprice, minprice, agents_seller):
+        albums_to_return = []
+        for agent in agents_seller:
+            albums_from_seller = agent.returnalbums(data_sets)
+            for album in albums_from_seller:
+                albums_to_return.append(album)
 
-    def displaydata(self):
-        for album in self.albums:
-            print(album.name, album.albumformat, album.quantity, sep=" : ")
-
-    def returnalbums(self, data_sets, maxprice, minprice):
         # print(length.array, length.priority, sep=" ")
         # print(years.array, years.priority, sep=" ")
         # print(nation.array, nation.priority, sep=" ")
@@ -57,4 +40,4 @@ class AgentClient:
         #     rand = random.randrange(0, len(self.albums), 1)
         #
         # return self.albums[rand]
-        return "XD"
+        return albums_to_return
