@@ -126,20 +126,36 @@ def createcheckboxes(titlelabel, arrvalues, arrstates):
         index += 1
 
 
+Magasine = Magasine("main")
 Ak1 = AgentClient("AK1", 'client')
-Ak1.init()
 Ak2 = AgentClient("AK2", 'client')
-Ak2.init()
 Ak3 = AgentClient("AK3", 'client')
-Ak3.init()
+Ak4 = AgentClient("AK4", 'client')
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
 # root.eval('tk::PlaceWindow . center')
-
+# print("Magazyn Main:\n")
+# Magasine.displaydata()
+Ak1.takealbumsfrommagasine(Magasine)
+print("Magazyn AK1:\n")
 Ak1.displaydata()
-#Ak2.displaydata()
+# print("Magazyn Main po AK1:\n")
+# Magasine.displaydata()
+Ak2.takealbumsfrommagasine(Magasine)
+print("Magazyn AK2:\n")
+Ak2.displaydata()
+# print("Magazyn Main po AK2:\n")
+# Magasine.displaydata()
 
+Ak3.takealbumsfrommagasine(Magasine)
+print("Magazyn AK3:\n")
+Ak3.displaydata()
+# print("Magazyn Main po AK3:\n")
+# Magasine.displaydata()
+Ak4.takealbumsfrommagasine(Magasine)
+print("Magazyn AK4:\n")
+Ak4.displaydata()
 prioritiesArr = ["Wysoki", "Średni", "Niski"]
 priorities = []
 lengthArr = []

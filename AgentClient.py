@@ -25,8 +25,11 @@ class AgentClient:
     def __init__(self, name, agenttype):
         self.name = name
         self.agenttype = agenttype
-        self.magasine = Magasine("main")
-        self.albums = self.magasine.returnalbumstoagent()
+        # self.magasine = Magasine("main")
+        self.albums = []
+
+    def takealbumsfrommagasine(self, magasine):
+        self.albums = magasine.returnalbumstoagent()
 
     def init(self):
         print("Agent typu {} o nazwie {} rozpoczął działanie.".format(self.agenttype, self.name))
