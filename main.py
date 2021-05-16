@@ -1,4 +1,4 @@
-from tkinter import ttk, StringVar, W, E, N
+from tkinter import ttk, StringVar, W, E, N, END
 from ttkthemes import ThemedTk
 from AgentClient import AgentClient
 from AgentSeller import AgentSeller
@@ -25,72 +25,75 @@ def check(array):
     return 0
 
 
+def gui_user_choice(albums_returned_merged):
+    def choice():
+        labelchoice.config(text=var.get())
+
+    root.destroy()
+    userchoice = ThemedTk(theme='arc')
+    userchoice.title('Wybór albumu')
+    userchoice.geometry('350x200')
+    userchoice.eval('tk::PlaceWindow . center')
+
+    labelmain = ttk.Label(userchoice, text="Wybierz", font=("Arial", 12))
+    labelmain.pack()
+    buttonsubmit = ttk.Button(userchoice, text="Wybieram", command=choice)
+    buttonsubmit.pack()
+
+    var = StringVar()
+    for onealbum in albums_returned_merged:
+        label = "{} {}zł".format(onealbum.name, onealbum.price)
+        radio = ttk.Radiobutton(userchoice, text=label, value=onealbum.name, variable=var)
+        radio.pack(anchor=W)
+
+    labelchoice = ttk.Label(userchoice, text="", font=("Arial", 12))
+    labelchoice.pack()
+    userchoice.mainloop()
+
+
 def submit():
-    arrayappend(lengthVarStates, lengthArr)
-    arrayappend(yearsVarStates, yearsArr)
-    arrayappend(nationVarStates, nationArr)
-    arrayappend(atmosphereVarStates, atmosphereArr)
-    arrayappend(formatVarStates, formatArr)
-    arrayappend(ocassionVarStates, ocassionArr)
-    arrayappend(languageVarStates, languageArr)
+    # Data Validation
+    checksum = check(atmosphereVarStates) + check(ocassionVarStates)
+    if checksum == 2 and maxprice and maxprice.get().isdigit() and minprice and minprice.get().isdigit() \
+            and nosellers.get().isdigit():
 
-    priors = []
-    arrayappend(priorities, priors)
+        main_magasine = Magasine("main")
+        agents_client = []
+        agents_seller = []
+        priors = []
 
-    ds0 = DataSet(lengthArr, priors[0])
-    ds1 = DataSet(yearsArr, priors[1])
-    ds2 = DataSet(nationArr, priors[2])
-    ds3 = DataSet(atmosphereArr, priors[3])
-    ds4 = DataSet(formatArr, priors[4])
-    ds5 = DataSet(ocassionArr, priors[5])
-    ds6 = DataSet(languageArr, priors[6])
+        # Create agents
+        for i in range(int(nosellers.get())):
+            agents_client.append(AgentClient("AK" + str(i + 1)))
+            agents_seller.append(AgentSeller("AS" + str(i + 1)))
 
-    # print(check(lengthVarStates))
-    # print(check(yearsVarStates))
-    # print(check(nationVarStates))
-    # print(check(atmosphereVarStates))
-    # print(check(formatVarStates))
-    # print(check(ocassionVarStates))
-    # print(check(languageVarStates))
+        # Create data for agents
+        arrayappend(lengthVarStates, lengthArr)
+        arrayappend(yearsVarStates, yearsArr)
+        arrayappend(nationVarStates, nationArr)
+        arrayappend(atmosphereVarStates, atmosphereArr)
+        arrayappend(formatVarStates, formatArr)
+        arrayappend(ocassionVarStates, ocassionArr)
+        arrayappend(languageVarStates, languageArr)
+        arrayappend(priorities, priors)
 
-    checksum = check(lengthVarStates) + check(yearsVarStates) + check(nationVarStates) + check(
-        atmosphereVarStates) + check(
-        formatVarStates) + check(ocassionVarStates) + check(languageVarStates)
+        data_sets = [DataSet(lengthArr, priors[0]), DataSet(yearsArr, priors[1]), DataSet(nationArr, priors[2]),
+                     DataSet(atmosphereArr, priors[3]), DataSet(formatArr, priors[4]), DataSet(ocassionArr, priors[5]),
+                     DataSet(languageArr, priors[6])]
 
-    if checksum == 7 and maxprice and maxprice.get().isdigit() and minprice and minprice.get().isdigit():
-        root.destroy()
-        returnedalbums = [Ak1.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get(), minprice.get()),
-                          Ak2.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get(), minprice.get()),
-                          Ak3.returnalbums(ds0, ds1, ds2, ds3, ds4, ds5, ds6, maxprice.get(), minprice.get()),
-                          ]
-        arrayforuser = []
-        for album in returnedalbums:
-            if album not in arrayforuser and album is not None:
-                arrayforuser.append(album)
-                # print(album.name)
+        # Return albums from sellers to user
+        albums_returned = []
+        for agent in agents_client:
+            albums_returned.append(agent.returnalbums(data_sets, maxprice.get(), minprice.get()))
 
-        def choice():
-            labelchoice.config(text=var.get())
+        # Return albums without repeats
+        albums_returned_merged = []
+        for album in albums_returned:
+            if album not in albums_returned_merged and album is not None:
+                albums_returned_merged.append(album)
 
-        userchoice = ThemedTk(theme='arc')
-        userchoice.title('Wybór albumu')
-        userchoice.geometry('350x200')
-        userchoice.eval('tk::PlaceWindow . center')
-
-        labelmain = ttk.Label(userchoice, text="Wybierz", font=("Arial", 12))
-        labelmain.pack()
-        buttonsubmit = ttk.Button(userchoice, text="Wybieram", command=choice)
-        buttonsubmit.pack()
-
-        var = StringVar()
-        for onealbum in arrayforuser:
-            label = "{} {}zł".format(onealbum.name, onealbum.price)
-            radio = ttk.Radiobutton(userchoice, text=label, value=onealbum.name, variable=var)
-            radio.pack(anchor=W)
-
-        labelchoice = ttk.Label(userchoice, text="", font=("Arial", 12))
-        labelchoice.pack()
-        userchoice.mainloop()
+        # Display choice window
+        gui_user_choice(albums_returned_merged)
 
 
 def createheader(titlelabel):
@@ -124,37 +127,31 @@ def createcheckboxes(titlelabel, arrvalues, arrstates):
         index += 1
 
 
-Magasine = Magasine("main")
-Ak1 = AgentClient("AK1", 'client')
-Ak2 = AgentClient("AK2", 'client')
-Ak3 = AgentClient("AK3", 'client')
-Ak4 = AgentClient("AK4", 'client')
-
 root = ThemedTk(theme='arc')
 root.title('Doradca muzyczny')
 root.geometry('350x900')
 # root.eval('tk::PlaceWindow . center')
 # print("Magazyn Main:\n")
 # Magasine.displaydata()
-Ak1.takealbumsfrommagasine(Magasine)
-print("Magazyn AK1:\n")
-Ak1.displaydata()
-# print("Magazyn Main po AK1:\n")
-# Magasine.displaydata()
-Ak2.takealbumsfrommagasine(Magasine)
-print("Magazyn AK2:\n")
-Ak2.displaydata()
-# print("Magazyn Main po AK2:\n")
-# Magasine.displaydata()
-
-Ak3.takealbumsfrommagasine(Magasine)
-print("Magazyn AK3:\n")
-Ak3.displaydata()
-# print("Magazyn Main po AK3:\n")
-# Magasine.displaydata()
-Ak4.takealbumsfrommagasine(Magasine)
-print("Magazyn AK4:\n")
-Ak4.displaydata()
+# Ak1.takealbumsfrommagasine(Magasine)
+# print("Magazyn AK1:\n")
+# Ak1.displaydata()
+# # print("Magazyn Main po AK1:\n")
+# # Magasine.displaydata()
+# Ak2.takealbumsfrommagasine(Magasine)
+# print("Magazyn AK2:\n")
+# Ak2.displaydata()
+# # print("Magazyn Main po AK2:\n")
+# # Magasine.displaydata()
+#
+# Ak3.takealbumsfrommagasine(Magasine)
+# print("Magazyn AK3:\n")
+# Ak3.displaydata()
+# # print("Magazyn Main po AK3:\n")
+# # Magasine.displaydata()
+# Ak4.takealbumsfrommagasine(Magasine)
+# print("Magazyn AK4:\n")
+# Ak4.displaydata()
 prioritiesArr = ["Wysoki", "Średni", "Niski"]
 priorities = []
 lengthArr = []
@@ -198,38 +195,21 @@ pricetitlelabel = ttk.Label(root, text="Min cena", font=("Arial", 12))
 pricetitlelabel.pack(anchor=W)
 minpriceinput = ttk.Entry(root, textvariable=minprice)
 minpriceinput.pack(anchor=W)
+minpriceinput.insert(END, '10')
 
 maxprice = StringVar()
 pricetitlelabel = ttk.Label(root, text="Max cena", font=("Arial", 12))
 pricetitlelabel.pack(anchor=W)
 maxpriceinput = ttk.Entry(root, textvariable=maxprice)
 maxpriceinput.pack(anchor=W)
+maxpriceinput.insert(END, '30')
 
 nosellers = StringVar()
 nosellerstitlelabel = ttk.Label(root, text="Liczba sprzedawców", font=("Arial", 12))
 nosellerstitlelabel.pack(anchor=W)
 nosellersinput = ttk.Entry(root, textvariable=nosellers)
 nosellersinput.pack(anchor=W)
-
-# combovalues = ["as", "asd", "dsf"]
-# combo1 = Combobox(root)
-# combo1['values'] = combovalues
-# combo1.pack(anchor=W)
-# combo2 = Combobox(root)
-# combo2['values'] = combovalues
-# combo2.pack(anchor=W)
-# combo3 = Combobox(root)
-# combo3['values'] = combovalues
-# combo3.pack(anchor=W)
-
-# titlelabel3 = ttk.Label(root, text='Priorytet 3').pack(anchor=W)
-# titlelabel2 = ttk.Label(root, text='Priorytet 2').pack(anchor=W)
-# titlelabel1 = ttk.Label(root, text='Priorytet 1').pack(anchor=W)
-# titlelabel4 = ttk.Label(root, text='Priorytet 4').pack(anchor=W)
-# titlelabel5 = ttk.Label(root, text='Priorytet 5').pack(anchor=W)
-# titlelabel6 = ttk.Label(root, text='Priorytet 6').pack(anchor=W)
-# titlelabel7 = ttk.Label(root, text='Priorytet 7').pack(anchor=W)
-# titlelabel8 = ttk.Label(root, text='Priorytet 8').pack(anchor=W)
+nosellersinput.insert(END, '3')
 
 buttonSubmit = ttk.Button(root, text="Dalej", command=submit).pack()
 
